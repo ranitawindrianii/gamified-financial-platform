@@ -513,25 +513,25 @@
 }
 
 .icon-circle-primary {
-  @apply icon-circle;
+  @apply inline-flex items-center justify-center rounded-full;
   background: oklch(0.75 0.15 195 / 0.15);
   color: oklch(0.8 0.13 195);
 }
 
 .icon-circle-gold {
-  @apply icon-circle;
+  @apply inline-flex items-center justify-center rounded-full;
   background: oklch(0.8 0.16 85 / 0.15);
   color: oklch(0.85 0.14 85);
 }
 
 .icon-circle-success {
-  @apply icon-circle;
+  @apply inline-flex items-center justify-center rounded-full;
   background: oklch(0.7 0.18 155 / 0.15);
   color: oklch(0.75 0.16 155);
 }
 
 .icon-circle-xp {
-  @apply icon-circle;
+  @apply inline-flex items-center justify-center rounded-full;
   background: oklch(0.65 0.2 300 / 0.15);
   color: oklch(0.75 0.18 300);
 }
