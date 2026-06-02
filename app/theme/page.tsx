@@ -188,7 +188,7 @@ export default function ThemeShowcasePage() {
       </section>
 
       {/* STYLE GUIDE SECTION */}
-      <section className="border-t border-border bg-card/30">
+      <section className="border-t border-border bg-secondary/50">
         <div className="max-w-7xl mx-auto px-6 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-extrabold mb-3">Panduan Gaya Visual</h2>

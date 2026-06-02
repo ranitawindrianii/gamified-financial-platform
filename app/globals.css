@@ -11,95 +11,95 @@
 :root {
   /* === PALET WARNA UTAMA === */
   
-  /* Background - Slate gelap dengan hint biru */
-  --background: oklch(0.14 0.015 250);
-  --foreground: oklch(0.97 0.005 250);
+  /* Background - Putih bersih */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2 0.02 250);
   
-  /* Card - Sedikit lebih terang dari background */
-  --card: oklch(0.18 0.02 250);
-  --card-foreground: oklch(0.97 0.005 250);
+  /* Card - Putih dengan border subtle */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.02 250);
   
   /* Popover */
-  --popover: oklch(0.18 0.02 250);
-  --popover-foreground: oklch(0.97 0.005 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.02 250);
   
-  /* Primary - Teal/Cyan (Financial Trust) */
-  --primary: oklch(0.75 0.15 195);
-  --primary-foreground: oklch(0.12 0.02 250);
+  /* Primary - Teal/Cyan (Financial Trust) - lebih saturated untuk kontras di putih */
+  --primary: oklch(0.55 0.18 195);
+  --primary-foreground: oklch(1 0 0);
   
-  /* Secondary - Slate muted */
-  --secondary: oklch(0.24 0.025 250);
-  --secondary-foreground: oklch(0.92 0.01 250);
+  /* Secondary - Light gray */
+  --secondary: oklch(0.96 0.005 250);
+  --secondary-foreground: oklch(0.25 0.02 250);
   
-  /* Muted */
-  --muted: oklch(0.22 0.02 250);
-  --muted-foreground: oklch(0.6 0.02 250);
+  /* Muted - Soft gray untuk area netral */
+  --muted: oklch(0.96 0.005 250);
+  --muted-foreground: oklch(0.45 0.02 250);
   
-  /* Accent - Amber/Gold (Achievement/Reward) */
-  --accent: oklch(0.8 0.16 85);
-  --accent-foreground: oklch(0.12 0.02 250);
+  /* Accent - Amber/Gold (Achievement/Reward) - lebih deep untuk kontras */
+  --accent: oklch(0.7 0.18 80);
+  --accent-foreground: oklch(0.15 0.02 80);
   
   /* Destructive */
-  --destructive: oklch(0.6 0.2 25);
-  --destructive-foreground: oklch(0.97 0.005 250);
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(1 0 0);
   
   /* Border & Input */
-  --border: oklch(0.28 0.025 250);
-  --input: oklch(0.22 0.025 250);
-  --ring: oklch(0.75 0.15 195);
+  --border: oklch(0.9 0.005 250);
+  --input: oklch(0.96 0.005 250);
+  --ring: oklch(0.55 0.18 195);
   
   /* === WARNA STATUS === */
-  --success: oklch(0.7 0.18 155);
-  --success-foreground: oklch(0.12 0.02 250);
-  --warning: oklch(0.8 0.16 85);
-  --warning-foreground: oklch(0.12 0.02 250);
-  --error: oklch(0.6 0.2 25);
-  --error-foreground: oklch(0.97 0.005 250);
-  --info: oklch(0.65 0.15 240);
-  --info-foreground: oklch(0.97 0.005 250);
+  --success: oklch(0.55 0.18 155);
+  --success-foreground: oklch(1 0 0);
+  --warning: oklch(0.7 0.18 80);
+  --warning-foreground: oklch(0.2 0.02 80);
+  --error: oklch(0.55 0.22 25);
+  --error-foreground: oklch(1 0 0);
+  --info: oklch(0.55 0.15 240);
+  --info-foreground: oklch(1 0 0);
   
   /* === WARNA GAMIFIKASI === */
-  --xp: oklch(0.65 0.2 300);
-  --xp-foreground: oklch(0.97 0.005 250);
-  --coin: oklch(0.8 0.16 85);
-  --coin-foreground: oklch(0.12 0.02 250);
-  --streak: oklch(0.7 0.2 35);
-  --streak-foreground: oklch(0.12 0.02 250);
-  --level: oklch(0.75 0.15 195);
-  --level-foreground: oklch(0.12 0.02 250);
+  --xp: oklch(0.55 0.22 300);
+  --xp-foreground: oklch(1 0 0);
+  --coin: oklch(0.7 0.18 80);
+  --coin-foreground: oklch(0.2 0.02 80);
+  --streak: oklch(0.6 0.2 35);
+  --streak-foreground: oklch(1 0 0);
+  --level: oklch(0.55 0.18 195);
+  --level-foreground: oklch(1 0 0);
   
   /* === WARNA BADGE RANK === */
-  --rank-bronze: oklch(0.6 0.1 55);
-  --rank-silver: oklch(0.7 0.02 250);
-  --rank-gold: oklch(0.8 0.16 85);
-  --rank-platinum: oklch(0.75 0.1 195);
-  --rank-diamond: oklch(0.75 0.15 280);
+  --rank-bronze: oklch(0.55 0.12 55);
+  --rank-silver: oklch(0.6 0.02 250);
+  --rank-gold: oklch(0.7 0.18 80);
+  --rank-platinum: oklch(0.55 0.12 195);
+  --rank-diamond: oklch(0.55 0.18 280);
   
   /* === WARNA KATEGORI MISI === */
-  --misi-tabungan: oklch(0.7 0.18 155);
-  --misi-belanja: oklch(0.65 0.15 240);
-  --misi-investasi: oklch(0.7 0.2 35);
-  --misi-donasi: oklch(0.7 0.15 320);
+  --misi-tabungan: oklch(0.55 0.18 155);
+  --misi-belanja: oklch(0.55 0.15 240);
+  --misi-investasi: oklch(0.6 0.2 35);
+  --misi-donasi: oklch(0.6 0.18 320);
   
   /* === CHART COLORS === */
-  --chart-1: oklch(0.75 0.15 195);
-  --chart-2: oklch(0.8 0.16 85);
-  --chart-3: oklch(0.7 0.18 155);
-  --chart-4: oklch(0.65 0.2 300);
-  --chart-5: oklch(0.7 0.2 35);
+  --chart-1: oklch(0.55 0.18 195);
+  --chart-2: oklch(0.7 0.18 80);
+  --chart-3: oklch(0.55 0.18 155);
+  --chart-4: oklch(0.55 0.22 300);
+  --chart-5: oklch(0.6 0.2 35);
   
   /* === RADIUS & SPACING === */
   --radius: 0.75rem;
   
   /* === SIDEBAR === */
-  --sidebar: oklch(0.12 0.015 250);
-  --sidebar-foreground: oklch(0.97 0.005 250);
-  --sidebar-primary: oklch(0.75 0.15 195);
-  --sidebar-primary-foreground: oklch(0.12 0.02 250);
-  --sidebar-accent: oklch(0.18 0.02 250);
-  --sidebar-accent-foreground: oklch(0.97 0.005 250);
-  --sidebar-border: oklch(0.25 0.025 250);
-  --sidebar-ring: oklch(0.75 0.15 195);
+  --sidebar: oklch(0.98 0.002 250);
+  --sidebar-foreground: oklch(0.2 0.02 250);
+  --sidebar-primary: oklch(0.55 0.18 195);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.96 0.005 250);
+  --sidebar-accent-foreground: oklch(0.2 0.02 250);
+  --sidebar-border: oklch(0.9 0.005 250);
+  --sidebar-ring: oklch(0.55 0.18 195);
 }
 
 @theme inline {
@@ -200,20 +200,20 @@
 /* Glow pulse untuk achievement/reward */
 @keyframes pulse-glow {
   0%, 100% { 
-    box-shadow: 0 0 8px oklch(0.75 0.15 195 / 0.4);
+    box-shadow: 0 0 8px oklch(0.55 0.18 195 / 0.3);
   }
   50% { 
-    box-shadow: 0 0 24px oklch(0.75 0.15 195 / 0.7);
+    box-shadow: 0 0 20px oklch(0.55 0.18 195 / 0.5);
   }
 }
 
 /* Gold glow untuk koin/hadiah */
 @keyframes gold-glow {
   0%, 100% { 
-    box-shadow: 0 0 8px oklch(0.8 0.16 85 / 0.4);
+    box-shadow: 0 0 8px oklch(0.7 0.18 80 / 0.3);
   }
   50% { 
-    box-shadow: 0 0 20px oklch(0.8 0.16 85 / 0.8);
+    box-shadow: 0 0 18px oklch(0.7 0.18 80 / 0.6);
   }
 }
 
@@ -287,9 +287,9 @@
 .shine-text {
   background: linear-gradient(
     90deg, 
-    oklch(0.75 0.15 195), 
-    oklch(0.9 0.08 195), 
-    oklch(0.75 0.15 195)
+    oklch(0.55 0.18 195), 
+    oklch(0.7 0.12 195), 
+    oklch(0.55 0.18 195)
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -302,9 +302,9 @@
 .shine-gold {
   background: linear-gradient(
     90deg, 
-    oklch(0.8 0.16 85), 
-    oklch(0.95 0.1 85), 
-    oklch(0.8 0.16 85)
+    oklch(0.65 0.18 80), 
+    oklch(0.8 0.14 80), 
+    oklch(0.65 0.18 80)
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -319,27 +319,29 @@
 
 .card-adventure {
   @apply bg-card border border-border rounded-xl;
+  box-shadow: 0 1px 3px oklch(0 0 0 / 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .card-adventure:hover {
   transform: translateY(-4px);
   box-shadow: 
-    0 8px 30px oklch(0.75 0.15 195 / 0.15),
-    0 4px 12px oklch(0 0 0 / 0.2);
-  border-color: oklch(0.75 0.15 195 / 0.4);
+    0 8px 24px oklch(0.55 0.18 195 / 0.12),
+    0 4px 8px oklch(0 0 0 / 0.08);
+  border-color: oklch(0.55 0.18 195 / 0.3);
 }
 
 .card-achievement {
   @apply bg-card border-2 rounded-xl;
-  border-color: oklch(0.8 0.16 85 / 0.5);
+  border-color: oklch(0.7 0.18 80 / 0.4);
   box-shadow: 
-    0 0 20px oklch(0.8 0.16 85 / 0.1),
-    inset 0 1px 0 oklch(1 0 0 / 0.05);
+    0 0 16px oklch(0.7 0.18 80 / 0.08),
+    0 1px 3px oklch(0 0 0 / 0.06);
 }
 
 .card-mission {
   @apply bg-card border border-border rounded-xl relative overflow-hidden;
+  box-shadow: 0 1px 3px oklch(0 0 0 / 0.06);
 }
 
 .card-mission::before {
@@ -349,7 +351,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, oklch(0.75 0.15 195), oklch(0.8 0.16 85));
+  background: linear-gradient(90deg, oklch(0.55 0.18 195), oklch(0.7 0.18 80));
 }
 
 /* ============================================
@@ -358,61 +360,61 @@
 
 .badge-xp {
   @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold;
-  background: oklch(0.65 0.2 300 / 0.15);
-  color: oklch(0.8 0.18 300);
-  border: 1px solid oklch(0.65 0.2 300 / 0.3);
+  background: oklch(0.55 0.22 300 / 0.1);
+  color: oklch(0.45 0.2 300);
+  border: 1px solid oklch(0.55 0.22 300 / 0.25);
 }
 
 .badge-coin {
   @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold;
-  background: oklch(0.8 0.16 85 / 0.15);
-  color: oklch(0.85 0.14 85);
-  border: 1px solid oklch(0.8 0.16 85 / 0.3);
+  background: oklch(0.7 0.18 80 / 0.12);
+  color: oklch(0.5 0.15 80);
+  border: 1px solid oklch(0.7 0.18 80 / 0.25);
 }
 
 .badge-streak {
   @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold;
-  background: oklch(0.7 0.2 35 / 0.15);
-  color: oklch(0.8 0.18 35);
-  border: 1px solid oklch(0.7 0.2 35 / 0.3);
+  background: oklch(0.6 0.2 35 / 0.1);
+  color: oklch(0.5 0.18 35);
+  border: 1px solid oklch(0.6 0.2 35 / 0.25);
 }
 
 .badge-level {
   @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold;
-  background: oklch(0.75 0.15 195 / 0.15);
-  color: oklch(0.85 0.12 195);
-  border: 1px solid oklch(0.75 0.15 195 / 0.3);
+  background: oklch(0.55 0.18 195 / 0.1);
+  color: oklch(0.45 0.16 195);
+  border: 1px solid oklch(0.55 0.18 195 / 0.25);
 }
 
 /* Badge rank dengan gradient */
 .badge-bronze {
   @apply px-3 py-1 rounded-full text-sm font-bold;
-  background: linear-gradient(135deg, oklch(0.55 0.08 55), oklch(0.65 0.12 55));
-  color: oklch(0.2 0.02 55);
+  background: linear-gradient(135deg, oklch(0.6 0.1 55), oklch(0.7 0.12 55));
+  color: oklch(0.25 0.04 55);
 }
 
 .badge-silver {
   @apply px-3 py-1 rounded-full text-sm font-bold;
-  background: linear-gradient(135deg, oklch(0.65 0.015 250), oklch(0.8 0.02 250));
-  color: oklch(0.2 0.01 250);
+  background: linear-gradient(135deg, oklch(0.7 0.015 250), oklch(0.82 0.02 250));
+  color: oklch(0.25 0.01 250);
 }
 
 .badge-gold {
   @apply px-3 py-1 rounded-full text-sm font-bold;
-  background: linear-gradient(135deg, oklch(0.75 0.14 85), oklch(0.88 0.16 85));
-  color: oklch(0.25 0.05 85);
+  background: linear-gradient(135deg, oklch(0.72 0.16 80), oklch(0.82 0.14 80));
+  color: oklch(0.28 0.06 80);
 }
 
 .badge-platinum {
   @apply px-3 py-1 rounded-full text-sm font-bold;
-  background: linear-gradient(135deg, oklch(0.7 0.08 195), oklch(0.82 0.12 195));
-  color: oklch(0.15 0.02 195);
+  background: linear-gradient(135deg, oklch(0.6 0.1 195), oklch(0.72 0.12 195));
+  color: oklch(0.2 0.03 195);
 }
 
 .badge-diamond {
   @apply px-3 py-1 rounded-full text-sm font-bold;
-  background: linear-gradient(135deg, oklch(0.7 0.12 280), oklch(0.85 0.15 280));
-  color: oklch(0.15 0.03 280);
+  background: linear-gradient(135deg, oklch(0.6 0.14 280), oklch(0.75 0.16 280));
+  color: oklch(0.2 0.04 280);
 }
 
 /* ============================================
@@ -421,32 +423,32 @@
 
 .progress-adventure {
   @apply w-full h-3 rounded-full overflow-hidden;
-  background: oklch(0.22 0.02 250);
+  background: oklch(0.94 0.005 250);
 }
 
 .progress-adventure-fill {
   @apply h-full rounded-full transition-all duration-500;
-  background: linear-gradient(90deg, oklch(0.75 0.15 195), oklch(0.8 0.16 85));
+  background: linear-gradient(90deg, oklch(0.55 0.18 195), oklch(0.7 0.18 80));
 }
 
 .progress-xp {
   @apply w-full h-2.5 rounded-full overflow-hidden;
-  background: oklch(0.22 0.02 250);
+  background: oklch(0.94 0.005 250);
 }
 
 .progress-xp-fill {
   @apply h-full rounded-full;
-  background: linear-gradient(90deg, oklch(0.6 0.18 300), oklch(0.75 0.2 300));
+  background: linear-gradient(90deg, oklch(0.5 0.2 300), oklch(0.6 0.22 300));
 }
 
 .progress-mission {
   @apply w-full h-2 rounded-full overflow-hidden;
-  background: oklch(0.22 0.02 250);
+  background: oklch(0.94 0.005 250);
 }
 
 .progress-mission-fill {
   @apply h-full rounded-full;
-  background: oklch(0.7 0.18 155);
+  background: oklch(0.55 0.18 155);
 }
 
 /* ============================================
@@ -456,18 +458,18 @@
 .btn-adventure {
   @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-base;
   @apply transition-all duration-200;
-  background: linear-gradient(135deg, oklch(0.75 0.15 195), oklch(0.68 0.16 195));
-  color: oklch(0.12 0.02 250);
+  background: linear-gradient(135deg, oklch(0.55 0.18 195), oklch(0.48 0.17 195));
+  color: oklch(1 0 0);
   box-shadow: 
-    0 4px 14px oklch(0.75 0.15 195 / 0.4),
-    inset 0 1px 0 oklch(1 0 0 / 0.15);
+    0 4px 12px oklch(0.55 0.18 195 / 0.3),
+    inset 0 1px 0 oklch(1 0 0 / 0.1);
 }
 
 .btn-adventure:hover {
   transform: translateY(-2px);
   box-shadow: 
-    0 6px 20px oklch(0.75 0.15 195 / 0.5),
-    inset 0 1px 0 oklch(1 0 0 / 0.2);
+    0 6px 18px oklch(0.55 0.18 195 / 0.4),
+    inset 0 1px 0 oklch(1 0 0 / 0.15);
 }
 
 .btn-adventure:active {
@@ -477,31 +479,31 @@
 .btn-reward {
   @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-base;
   @apply transition-all duration-200;
-  background: linear-gradient(135deg, oklch(0.8 0.16 85), oklch(0.72 0.17 85));
-  color: oklch(0.12 0.02 250);
+  background: linear-gradient(135deg, oklch(0.7 0.18 80), oklch(0.62 0.17 80));
+  color: oklch(0.15 0.02 80);
   box-shadow: 
-    0 4px 14px oklch(0.8 0.16 85 / 0.4),
-    inset 0 1px 0 oklch(1 0 0 / 0.2);
+    0 4px 12px oklch(0.7 0.18 80 / 0.3),
+    inset 0 1px 0 oklch(1 0 0 / 0.15);
 }
 
 .btn-reward:hover {
   transform: translateY(-2px);
   box-shadow: 
-    0 6px 20px oklch(0.8 0.16 85 / 0.5),
-    inset 0 1px 0 oklch(1 0 0 / 0.25);
+    0 6px 18px oklch(0.7 0.18 80 / 0.4),
+    inset 0 1px 0 oklch(1 0 0 / 0.2);
 }
 
 .btn-ghost-adventure {
   @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold;
   @apply transition-all duration-200;
   background: transparent;
-  color: oklch(0.75 0.15 195);
-  border: 2px solid oklch(0.75 0.15 195 / 0.4);
+  color: oklch(0.55 0.18 195);
+  border: 2px solid oklch(0.55 0.18 195 / 0.3);
 }
 
 .btn-ghost-adventure:hover {
-  background: oklch(0.75 0.15 195 / 0.1);
-  border-color: oklch(0.75 0.15 195);
+  background: oklch(0.55 0.18 195 / 0.08);
+  border-color: oklch(0.55 0.18 195 / 0.6);
 }
 
 /* ============================================
@@ -514,26 +516,26 @@
 
 .icon-circle-primary {
   @apply inline-flex items-center justify-center rounded-full;
-  background: oklch(0.75 0.15 195 / 0.15);
-  color: oklch(0.8 0.13 195);
+  background: oklch(0.55 0.18 195 / 0.1);
+  color: oklch(0.5 0.16 195);
 }
 
 .icon-circle-gold {
   @apply inline-flex items-center justify-center rounded-full;
-  background: oklch(0.8 0.16 85 / 0.15);
-  color: oklch(0.85 0.14 85);
+  background: oklch(0.7 0.18 80 / 0.12);
+  color: oklch(0.55 0.16 80);
 }
 
 .icon-circle-success {
   @apply inline-flex items-center justify-center rounded-full;
-  background: oklch(0.7 0.18 155 / 0.15);
-  color: oklch(0.75 0.16 155);
+  background: oklch(0.55 0.18 155 / 0.1);
+  color: oklch(0.5 0.16 155);
 }
 
 .icon-circle-xp {
   @apply inline-flex items-center justify-center rounded-full;
-  background: oklch(0.65 0.2 300 / 0.15);
-  color: oklch(0.75 0.18 300);
+  background: oklch(0.55 0.22 300 / 0.1);
+  color: oklch(0.5 0.2 300);
 }
 
 /* ============================================
@@ -542,20 +544,20 @@
 
 .shadow-adventure {
   box-shadow: 
-    0 4px 20px oklch(0.75 0.15 195 / 0.15),
-    0 2px 8px oklch(0 0 0 / 0.15);
+    0 4px 16px oklch(0.55 0.18 195 / 0.1),
+    0 2px 6px oklch(0 0 0 / 0.06);
 }
 
 .shadow-card {
   box-shadow: 
-    0 2px 12px oklch(0 0 0 / 0.2),
-    0 1px 4px oklch(0 0 0 / 0.1);
+    0 2px 8px oklch(0 0 0 / 0.06),
+    0 1px 3px oklch(0 0 0 / 0.04);
 }
 
 .shadow-elevated {
   box-shadow: 
-    0 8px 30px oklch(0 0 0 / 0.25),
-    0 4px 12px oklch(0 0 0 / 0.15);
+    0 8px 24px oklch(0 0 0 / 0.1),
+    0 4px 8px oklch(0 0 0 / 0.06);
 }
 
 /* ============================================
@@ -563,14 +565,14 @@
    ============================================ */
 
 .text-gradient-primary {
-  background: linear-gradient(135deg, oklch(0.75 0.15 195), oklch(0.85 0.12 195));
+  background: linear-gradient(135deg, oklch(0.55 0.18 195), oklch(0.45 0.16 195));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-gold {
-  background: linear-gradient(135deg, oklch(0.8 0.16 85), oklch(0.9 0.12 85));
+  background: linear-gradient(135deg, oklch(0.65 0.18 80), oklch(0.55 0.16 80));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -585,8 +587,8 @@
   background: linear-gradient(
     90deg, 
     transparent, 
-    oklch(0.75 0.15 195 / 0.4), 
-    oklch(0.8 0.16 85 / 0.4), 
+    oklch(0.55 0.18 195 / 0.3), 
+    oklch(0.7 0.18 80 / 0.3), 
     transparent
   );
 }
@@ -601,7 +603,7 @@
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, oklch(0.75 0.15 195 / 0.5), oklch(0.8 0.16 85 / 0.5));
+  background: linear-gradient(135deg, oklch(0.55 0.18 195 / 0.4), oklch(0.7 0.18 80 / 0.4));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
