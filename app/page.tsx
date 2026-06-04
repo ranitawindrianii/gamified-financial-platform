@@ -124,9 +124,9 @@ export default function LandingPage() {
           <a href="#cara-main" className="hover:text-primary transition-colors">
             Cara Main
           </a>
-          <a href="#tentang" className="hover:text-primary transition-colors">
+          {/* <a href="#tentang" className="hover:text-primary transition-colors">
             Tentang
-          </a>
+          </a> */}
         </div>
         <Button
           onClick={(e) => handleLogin(e)}
@@ -160,16 +160,16 @@ export default function LandingPage() {
             size="lg"
             className="bg-primary text-primary-foreground font-black text-lg px-8 py-7 rounded-xl glow-gold hover:bg-primary/90"
           >
-            Mulai Petualangan Gratis
+            Mulai Petualangan
             <ChevronRight className="w-5 h-5 ml-2" />
           </Button>
-          <Button
+          {/* <Button
             variant="outline"
             size="lg"
             className="border-border text-foreground font-bold text-lg px-8 py-7 rounded-xl hover:bg-secondary"
           >
             Lihat Demo
-          </Button>
+          </Button> */}
         </div>
 
         {/* Stats */}
@@ -242,7 +242,7 @@ export default function LandingPage() {
             size="lg"
             className="bg-primary text-primary-foreground font-black text-lg px-10 py-7 rounded-xl glow-gold hover:bg-primary/90"
           >
-            Daftar Sekarang - Gratis!
+            Daftar Sekarang !
             <ChevronRight className="w-5 h-5 ml-2" />
           </Button>
         </div>
@@ -288,15 +288,15 @@ const features = [
 
 const steps = [
   {
-    title: "Buat Akun & Pilih Karakter",
-    desc: "Daftar dengan NIS sekolahmu, pilih avatar petualangmu, dan tentukan target keuangan pertama.",
+    title: "Buat Akun",
+    desc: "Daftar dengan NIS sekolahmu dan tentukan target keuangan pertama.",
   },
   {
     title: "Selesaikan Misi & Kuis",
     desc: "Kerjakan misi harian dan mingguan. Jawab kuis keuangan untuk mendapatkan XP dan koin.",
   },
   {
-    title: "Naik Level & Raih Prestasi",
+    title: "Naik Level & Raih Lencana",
     desc: "Kumpulkan lencana, masuk papan peringkat, dan jadilah Financial Hero di kelasmu!",
   },
 ]
