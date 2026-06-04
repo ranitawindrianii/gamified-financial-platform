@@ -25,7 +25,7 @@ export default function DashboardPage() {
             Halo, <span className="text-primary">Arya</span>! 👋
           </h1>
           <p className="text-muted-foreground text-sm mt-1">
-            Kamu punya <span className="text-primary font-bold">3 misi</span> yang menunggu diselesaikan.
+            Kamu punya <span className="text-primary font-bold">misi</span> yang menunggu diselesaikan.
           </p>
         </div>
         {/* Streak badge */}
@@ -33,7 +33,7 @@ export default function DashboardPage() {
           <Flame className="w-5 h-5 text-orange-400" />
           <div>
             <p className="text-xs text-muted-foreground font-semibold">Streak</p>
-            <p className="text-lg font-black text-foreground">7 hari</p>
+            <p className="text-lg font-black text-foreground">Financial Planning</p>
           </div>
         </div>
       </div>
@@ -43,10 +43,6 @@ export default function DashboardPage() {
 
       {/* Main content grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
-          <DailyMissions />
-          <WeeklyProgress />
-        </div> 
         <div className="space-y-6">
           <BudgetSnapshot />
           <BadgeShowcase />
