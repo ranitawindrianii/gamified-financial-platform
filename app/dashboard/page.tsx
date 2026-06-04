@@ -5,13 +5,22 @@ import { BadgeShowcase } from "@/components/dashboard/badge-showcase"
 import { WeeklyProgress } from "@/components/dashboard/weekly-progress"
 import { Coins, Zap, Trophy, Flame } from "lucide-react"
 
+export const dynamic = "force-dynamic"
+
 export default function DashboardPage() {
+  const formattedDate = new Date().toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  })
+
   return (
     <div className="space-y-6 pb-20 md:pb-0">
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-muted-foreground text-sm font-semibold">Senin, 2 Juni 2026</p>
+          <p className="text-muted-foreground text-sm font-semibold">{formattedDate}</p>
           <h1 className="text-2xl md:text-3xl font-black text-foreground mt-1">
             Halo, <span className="text-primary">Arya</span>! 👋
           </h1>

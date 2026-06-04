@@ -11,10 +11,10 @@ const nunito = Nunito({
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono' })
 
 export const metadata: Metadata = {
-  title: 'FinQuest - Platform Gamifikasi Keuangan SMP',
+  title: 'FinQuest - Platform Gamifikasi Keuangan',
   description:
-    'Platform gamifikasi edukasi keuangan untuk siswa SMP. Simulasi pengelolaan uang saku, misi keuangan, dan tantangan pengambilan keputusan finansial.',
-  keywords: ['gamifikasi', 'keuangan', 'SMP', 'literasi keuangan', 'uang saku'],
+    'Platform gamifikasi edukasi keuangan untuk siswa. Simulasi pengelolaan uang saku, misi keuangan, dan tantangan pengambilan keputusan finansial.',
+  keywords: ['gamifikasi', 'keuangan', 'siswa', 'literasi keuangan', 'uang saku'],
 }
 
 export default function RootLayout({

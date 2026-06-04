@@ -36,7 +36,7 @@ export default function ThemeShowcasePage() {
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
           <div className="absolute top-40 right-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-px bg-linear-to-r from-transparent via-primary/40 to-transparent" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 py-20">
@@ -71,7 +71,7 @@ export default function ThemeShowcasePage() {
               <h1 className="text-5xl lg:text-6xl font-black leading-tight">
                 <span className="text-foreground">Petualangan </span>
                 <span className="shine-text">Finansial</span>
-                <span className="text-foreground"> untuk Siswa SMP</span>
+                <span className="text-foreground"> untuk Siswa</span>
               </h1>
               
               <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
@@ -113,7 +113,7 @@ export default function ThemeShowcasePage() {
               <div className="card-achievement p-6 space-y-6 glow-gold">
                 {/* Player Header */}
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-2xl font-black text-primary-foreground">
+                  <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-primary to-accent flex items-center justify-center text-2xl font-black text-primary-foreground">
                     AN
                   </div>
                   <div className="flex-1">
@@ -625,7 +625,7 @@ export default function ThemeShowcasePage() {
       <footer className="border-t border-border py-8">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <p className="text-muted-foreground">
-            Financial Adventure Theme Guide - Platform Gamifikasi Keuangan untuk Siswa SMP
+            Financial Adventure Theme Guide - Platform Gamifikasi Keuangan untuk Siswa
           </p>
         </div>
       </footer>

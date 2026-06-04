@@ -1,85 +1,25 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Sword, Zap, Lock, CheckCircle2, Clock, Star, ChevronRight } from "lucide-react"
 import { QuizModal } from "@/components/misi/quiz-modal"
+import { createClient } from "@/lib/supabase/client"
 
 const allMissions = [
   {
     id: 1,
-    title: "Kebutuhan vs Keinginan",
-    desc: "Bedakan antara kebutuhan dan keinginan dalam skenario kehidupan sehari-hari siswa SMP.",
+    title: "Financial Heroes: Dasar-dasar Keuangan",
+    desc: "Mengenal konsep uang, literasi keuangan, inflasi, dan sistem keuangan serta mengambil keputusan keuangan sederhana",
     type: "Kuis",
-    xp: 80,
-    coins: 50,
+    xp: 200,
     difficulty: "Mudah",
     status: "available",
     questions: 10,
-    time: "10 menit",
-  },
-  {
-    id: 2,
-    title: "Buat Anggaran Bulanan",
-    desc: "Rancang anggaran uang saku bulananmu dengan alokasi yang tepat untuk kebutuhan dan tabungan.",
-    type: "Misi",
-    xp: 120,
-    coins: 80,
-    difficulty: "Sedang",
-    status: "available",
-    questions: null,
     time: "15 menit",
-  },
-  {
-    id: 3,
-    title: "Jebakan Diskon",
-    desc: "Hadapi skenario promosi dan diskon. Bisakah kamu membuat keputusan belanja yang bijak?",
-    type: "Kuis",
-    xp: 100,
-    coins: 65,
-    difficulty: "Sedang",
-    status: "done",
-    questions: 8,
-    time: "8 menit",
-  },
-  {
-    id: 4,
-    title: "Tabungan Impian",
-    desc: "Hitung berapa lama kamu perlu menabung untuk membeli barang impian dengan uang sakumu.",
-    type: "Misi",
-    xp: 150,
-    coins: 100,
-    difficulty: "Sedang",
-    status: "available",
-    questions: null,
-    time: "20 menit",
-  },
-  {
-    id: 5,
-    title: "Investasi Sederhana",
-    desc: "Pelajari konsep investasi dasar dan simulasikan keuntungan dari tabungan berbunga.",
-    type: "Kuis",
-    xp: 200,
-    coins: 130,
-    difficulty: "Sulit",
-    status: "locked",
-    questions: 12,
-    time: "15 menit",
-  },
-  {
-    id: 6,
-    title: "Krisis Keuangan!",
-    desc: "Uang sakumu hilang! Buat rencana darurat dan prioritaskan pengeluaran paling penting.",
-    type: "Misi",
-    xp: 250,
-    coins: 150,
-    difficulty: "Sulit",
-    status: "locked",
-    questions: null,
-    time: "25 menit",
   },
 ]
 
@@ -96,10 +36,43 @@ const typeColor: Record<string, string> = {
 
 export default function MisiPage() {
   const [activeQuiz, setActiveQuiz] = useState<(typeof allMissions)[0] | null>(null)
+  const [kuisTaken, setKuisTaken] = useState(0)
+  const [loading, setLoading] = useState(true)
 
-  const available = allMissions.filter((m) => m.status === "available")
-  const done = allMissions.filter((m) => m.status === "done")
-  const locked = allMissions.filter((m) => m.status === "locked")
+  useEffect(() => {
+    const checkQuizStatus = async () => {
+      try {
+        const supabase = createClient()
+        const { data: userData } = await supabase.auth.getUser()
+        if (!userData?.user?.id) return
+
+        const { data: profileData } = await supabase
+          .from("profiles")
+          .select("kuis_taken")
+          .eq("user_id", userData.user.id)
+          .maybeSingle()
+
+        if (profileData) {
+          setKuisTaken(profileData.kuis_taken ?? 0)
+        }
+      } catch (err) {
+        console.error("Error checking quiz status:", err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    checkQuizStatus()
+  }, [])
+
+  const missionsWithStatus = allMissions.map((m) => ({
+    ...m,
+    status: kuisTaken > 0 && m.type === "Kuis" ? "done" : m.status,
+  }))
+
+  const available = missionsWithStatus.filter((m) => m.status === "available")
+  const done = missionsWithStatus.filter((m) => m.status === "done")
+  const locked = missionsWithStatus.filter((m) => m.status === "locked")
 
   return (
     <div className="space-y-6 pb-20 md:pb-0">
@@ -147,9 +120,9 @@ export default function MisiPage() {
         </TabsList>
 
         {[
-          { value: "semua", list: allMissions },
-          { value: "misi", list: allMissions.filter((m) => m.type === "Misi") },
-          { value: "kuis", list: allMissions.filter((m) => m.type === "Kuis") },
+          { value: "semua", list: missionsWithStatus },
+          { value: "misi", list: missionsWithStatus.filter((m) => m.type === "Misi") },
+          { value: "kuis", list: missionsWithStatus.filter((m) => m.type === "Kuis") },
           { value: "selesai", list: done },
         ].map(({ value, list }) => (
           <TabsContent key={value} value={value} className="mt-4 space-y-4">
@@ -197,7 +170,6 @@ export default function MisiPage() {
                         <span className="flex items-center gap-1 text-primary font-bold">
                           <Zap className="w-3.5 h-3.5" /> +{m.xp} XP
                         </span>
-                        <span className="font-bold text-yellow-400">+{m.coins} Koin</span>
                         {m.questions && (
                           <span className="flex items-center gap-1 text-muted-foreground">
                             <Star className="w-3.5 h-3.5" /> {m.questions} soal

@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 
 export default function LandingPage() {
-  const [view, setView] = useState<"landing" | "login">("landing")
+  const [view, setView] = useState<"landing" | "login" | "register">("landing")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const router = useRouter()
@@ -36,7 +36,7 @@ export default function LandingPage() {
               <Coins className="w-8 h-8 text-primary" />
             </div>
             <h1 className="text-3xl font-black shine-text">FinQuest</h1>
-            <p className="text-muted-foreground text-sm mt-1">Platform Gamifikasi Keuangan SMP</p>
+            <p className="text-muted-foreground text-sm mt-1">Platform Gamifikasi Keuangan</p>
           </div>
 
           <Card className="border-border bg-card">
@@ -91,7 +91,7 @@ export default function LandingPage() {
           </Card>
 
           <p className="text-center text-xs text-muted-foreground mt-6">
-            Platform Edukasi Keuangan untuk Siswa SMP &bull; v1.0
+            Platform Edukasi Keuangan untuk Siswa &bull; v1.0
           </p>
         </div>
       </main>
@@ -129,7 +129,7 @@ export default function LandingPage() {
           </a>
         </div>
         <Button
-          onClick={() => setView("login")}
+          onClick={(e) => handleLogin(e)}
           className="bg-primary text-primary-foreground font-bold rounded-xl hover:bg-primary/90"
         >
           Masuk
@@ -140,7 +140,7 @@ export default function LandingPage() {
       <section className="relative z-10 flex flex-col items-center text-center px-6 pt-20 pb-24">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm font-bold mb-6">
           <Star className="w-4 h-4 fill-primary" />
-          Platform Gamifikasi #1 untuk Siswa SMP
+          Platform Gamifikasi #1 untuk Siswa
         </div>
 
         <h1 className="text-5xl md:text-7xl font-black leading-tight text-balance max-w-4xl">
@@ -156,7 +156,7 @@ export default function LandingPage() {
 
         <div className="flex flex-col sm:flex-row gap-4 mt-10">
           <Button
-            onClick={() => setView("login")}
+            onClick={(e) => { handleLogin(e)}}
             size="lg"
             className="bg-primary text-primary-foreground font-black text-lg px-8 py-7 rounded-xl glow-gold hover:bg-primary/90"
           >
@@ -235,7 +235,7 @@ export default function LandingPage() {
             Siap memulai <span className="text-primary">petualangan keuanganmu</span>?
           </h2>
           <p className="text-muted-foreground text-lg mb-8">
-            Bergabunglah dengan ribuan siswa SMP yang sudah cerdas finansial
+            Bergabunglah dengan ribuan siswa yang sudah cerdas finansial
           </p>
           <Button
             onClick={() => setView("login")}
@@ -255,7 +255,7 @@ export default function LandingPage() {
           <span className="font-black text-primary text-lg">FinQuest</span>
         </div>
         <p className="text-xs text-muted-foreground">
-          Platform Gamifikasi Keuangan untuk Siswa SMP &bull; Edukasi Finansial yang Menyenangkan
+          Platform Gamifikasi Keuangan untuk Siswa &bull; Edukasi Finansial yang Menyenangkan
         </p>
       </footer>
     </main>
@@ -263,13 +263,6 @@ export default function LandingPage() {
 }
 
 const features = [
-  {
-    icon: Target,
-    title: "Misi Keuangan",
-    desc: "Selesaikan misi-misi seru seperti membuat anggaran bulanan, menabung untuk tujuan, dan menghindari jebakan konsumtif.",
-    iconBg: "bg-primary/10",
-    iconColor: "text-primary",
-  },
   {
     icon: Zap,
     title: "Kuis Interaktif",
@@ -279,8 +272,8 @@ const features = [
   },
   {
     icon: Trophy,
-    title: "Sistem XP & Level",
-    desc: "Kumpulkan poin pengalaman (XP), naik level, dan raih lencana eksklusif untuk setiap pencapaian keuanganmu.",
+    title: "Sistem XP & Lencana",
+    desc: "Kumpulkan poin pengalaman (XP), dan dapatkan lencana eksklusif untuk setiap pencapaian keuanganmu.",
     iconBg: "bg-primary/10",
     iconColor: "text-primary",
   },
@@ -288,20 +281,6 @@ const features = [
     icon: TrendingUp,
     title: "Simulasi Anggaran",
     desc: "Kelola uang saku virtual, rencanakan pengeluaran, dan lihat bagaimana keputusanmu memengaruhi kondisi keuangan.",
-    iconBg: "bg-accent/10",
-    iconColor: "text-accent",
-  },
-  {
-    icon: Users,
-    title: "Papan Peringkat",
-    desc: "Bersaing secara sehat dengan teman sekelas di leaderboard. Lihat siapa yang paling cerdas finansial di kelasmu!",
-    iconBg: "bg-primary/10",
-    iconColor: "text-primary",
-  },
-  {
-    icon: BookOpen,
-    title: "Materi Edukasi",
-    desc: "Akses modul belajar keuangan yang dikemas dengan cara menarik: video animasi, infografis, dan cerita interaktif.",
     iconBg: "bg-accent/10",
     iconColor: "text-accent",
   },

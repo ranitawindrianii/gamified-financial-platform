@@ -1,53 +1,70 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import {
   Zap,
-  Coins,
-  Trophy,
-  Flame,
   Shield,
-  TrendingUp,
-  Target,
-  BookOpen,
   CheckCircle2,
-  Star,
-  Clock,
 } from "lucide-react"
-
-const badges = [
-  { emoji: "💰", name: "Penabung Pertama", desc: "Pertama kali menabung", earned: true },
-  { emoji: "🎯", name: "Tepat Anggaran", desc: "Anggaran sempurna 3x berturut", earned: true },
-  { emoji: "⚡", name: "Kuis Kilat", desc: "Selesaikan kuis dalam 3 menit", earned: true },
-  { emoji: "🏆", name: "Top 3 Kelas", desc: "Masuk 3 besar leaderboard", earned: true },
-  { emoji: "📚", name: "Rajin Belajar", desc: "Selesaikan 5 modul materi", earned: false },
-  { emoji: "🚀", name: "Level 10", desc: "Capai level 10", earned: false },
-  { emoji: "🔥", name: "Streak 30 Hari", desc: "Login 30 hari berturut-turut", earned: false },
-  { emoji: "💎", name: "Financial Hero", desc: "Raih skor sempurna semua kuis", earned: false },
-]
-
-const history = [
-  { action: "Menyelesaikan Kuis: Jebakan Diskon", xp: 100, coins: 65, time: "2 jam lalu", icon: Star },
-  { action: "Login harian streak 7 hari", xp: 20, coins: 10, time: "Hari ini", icon: Flame },
-  { action: "Simulasi Anggaran Sempurna", xp: 150, coins: 100, time: "Kemarin", icon: TrendingUp },
-  { action: "Menyelesaikan Misi: Buat Anggaran", xp: 120, coins: 80, time: "2 hari lalu", icon: Target },
-  { action: "Membaca Modul: Kebutuhan vs Keinginan", xp: 40, coins: 25, time: "3 hari lalu", icon: BookOpen },
-]
+import { createClient } from "@/lib/supabase/server"
 
 const stats = [
   { label: "Total XP", value: "1.240", icon: Zap, color: "text-accent" },
-  { label: "Koin", value: "4.850", icon: Coins, color: "text-yellow-400" },
-  { label: "Peringkat", value: "#3", icon: Trophy, color: "text-primary" },
-  { label: "Streak", value: "7 hari", icon: Flame, color: "text-orange-400" },
-  { label: "Misi Selesai", value: "47", icon: CheckCircle2, color: "text-accent" },
+  { label: "Kuis Selesai", value: "0", icon: CheckCircle2, color: "text-accent" },
   { label: "Lencana", value: "4/8", icon: Shield, color: "text-primary" },
 ]
 
-export default function ProfilPage() {
-  const xp = 1240
-  const xpNext = 1500
-  const level = 7
+export default async function ProfilPage() {
+  const supabase = await createClient()
+
+  const { data: userData } = await supabase.auth.getUser()
+  const userId = userData?.user?.id
+
+  let profile: { id?: string; fullname?: string; experience?: number; nis?: string } | null = null
+
+  if (userId) {
+    const { data } = await supabase
+      .from("profiles")
+      .select("id, fullname, experience, nis")
+      .eq("user_id", userId)
+      .maybeSingle()
+
+    profile = data ?? null
+  }
+
+  // Load badges and which ones the profile has earned
+  const { data: allBadges } = await supabase.from('badges').select('id, emoji, name, description, rules').order('order', { ascending: true })
+  let profileBadgeRows: any[] = []
+  if (profile?.id) {
+    const { data: pb } = await supabase.from('profile_badge').select('badge_id').eq('profile_id', profile.id)
+    profileBadgeRows = pb ?? []
+  }
+
+  const badges = (allBadges ?? []).map((b: any) => ({
+    emoji: b.emoji ?? '🏅',
+    name: b.name ?? 'Badge',
+    desc: b.description ?? '',
+    rules: b.rules ?? '',
+    id: b.id,
+    earned: profileBadgeRows.some((r) => r.badge_id === b.id),
+  }))
+
+  const xp = profile?.experience ?? 0
+  const earnedBadgeCount = badges.filter((b) => b.earned).length
+  const statsWithBadges = stats.map((s) => {
+    if (s.label === "Lencana") {
+      return { ...s, value: `${earnedBadgeCount}/${badges.length}` }
+    }
+    if (s.label === "Total XP") {
+      return { ...s, value: xp.toLocaleString("id-ID") }
+    }
+    return s
+  })
+
+  const level = Math.floor(xp / 100) + 1
+  const xpNext = level * 100
   const xpPct = Math.round((xp / xpNext) * 100)
+  const fullname = profile?.fullname ?? "User"
+  const nis = profile?.nis ?? "00000000"
 
   return (
     <div className="space-y-6 pb-20 md:pb-0 max-w-4xl mx-auto">
@@ -62,7 +79,7 @@ export default function ProfilPage() {
             {/* Avatar */}
             <div className="relative shrink-0">
               <div className="w-24 h-24 rounded-full bg-primary/20 border-4 border-primary/50 flex items-center justify-center text-4xl font-black text-primary glow-gold">
-                A
+                {fullname.charAt(0).toUpperCase()}
               </div>
               <div className="absolute -bottom-1 -right-1 bg-primary text-primary-foreground text-xs font-black rounded-full w-8 h-8 flex items-center justify-center border-2 border-background">
                 {level}
@@ -70,16 +87,8 @@ export default function ProfilPage() {
             </div>
 
             <div className="flex-1 text-center sm:text-left">
-              <h2 className="text-2xl font-black text-foreground">Arya Pratama</h2>
-              <p className="text-muted-foreground text-sm">Kelas 8A &bull; SMP Negeri 1 &bull; NIS: 20240001</p>
-              <div className="flex flex-wrap gap-2 mt-2 justify-center sm:justify-start">
-                <Badge className="bg-primary/10 text-primary border-primary/20 font-bold" variant="outline">
-                  Finance Explorer
-                </Badge>
-                <Badge className="bg-accent/10 text-accent border-accent/20 font-bold" variant="outline">
-                  Top 3 Kelas
-                </Badge>
-              </div>
+              <h2 className="text-2xl font-black text-foreground">{fullname}</h2>
+              <p className="text-muted-foreground text-sm">NIS: {nis}</p>
 
               {/* XP bar */}
               <div className="mt-4 max-w-sm mx-auto sm:mx-0">
@@ -102,7 +111,7 @@ export default function ProfilPage() {
 
       {/* Stats grid */}
       <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
-        {stats.map((s) => (
+        {statsWithBadges.map((s) => (
           <Card key={s.label} className="bg-card border-border">
             <CardContent className="p-3 text-center">
               <s.icon className={`w-5 h-5 mx-auto mb-1.5 ${s.color}`} />
@@ -113,7 +122,7 @@ export default function ProfilPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6">
         {/* Badges */}
         <Card className="bg-card border-border">
           <CardHeader className="pb-3">
@@ -134,26 +143,25 @@ export default function ProfilPage() {
               {badges.map((b) => (
                 <div
                   key={b.name}
-                  className={`flex flex-col items-center gap-1.5 p-2.5 rounded-xl border text-center transition-all ${
-                    b.earned
-                      ? "bg-primary/5 border-primary/20"
-                      : "bg-muted/10 border-border opacity-40 grayscale"
-                  }`}
-                  title={b.desc}
+                  className={`flex flex-col items-center gap-2 p-3 rounded-xl border text-center transition-all ${b.earned
+                    ? "bg-primary/5 border-primary/20"
+                    : "bg-muted/10 border-border opacity-40 grayscale"
+                    }`}
+                  title={b.rules}
                 >
                   <span className="text-2xl">{b.emoji}</span>
-                  <p className="text-[9px] font-bold text-foreground leading-tight">{b.name}</p>
+                  <p className="text-sm font-bold text-foreground leading-tight">{b.name}</p>
                 </div>
               ))}
             </div>
-            <p className="text-xs text-muted-foreground mt-3 text-center">
+            <p className="text-sm text-muted-foreground mt-3 text-center">
               Hover lencana untuk melihat cara mendapatkannya
             </p>
           </CardContent>
         </Card>
 
         {/* Activity history */}
-        <Card className="bg-card border-border">
+        {/* <Card className="bg-card border-border">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-accent/10 flex items-center justify-center">
@@ -179,7 +187,7 @@ export default function ProfilPage() {
               </div>
             ))}
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
     </div>
   )
