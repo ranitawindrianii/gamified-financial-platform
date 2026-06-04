@@ -39,43 +39,14 @@ export default function DashboardPage() {
       </div>
 
       {/* Stat cards */}
-      {/* <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard
-          icon={Coins}
-          label="Koin Terkumpul"
-          value="4.850"
-          sub="+120 hari ini"
-          accent="primary"
-        />
-        <StatCard
-          icon={Zap}
-          label="Total XP"
-          value="1.240"
-          sub="82% ke Level 8"
-          accent="accent"
-        />
-        <StatCard
-          icon={Trophy}
-          label="Peringkat Kelas"
-          value="#3"
-          sub="dari 32 siswa"
-          accent="primary"
-        />
-        <StatCard
-          icon={Flame}
-          label="Misi Selesai"
-          value="47"
-          sub="minggu ini: 5"
-          accent="accent"
-        />
-      </div> */}
+      
 
       {/* Main content grid */}
-      {/* <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           <DailyMissions />
           <WeeklyProgress />
-        </div> */}
+        </div> 
         <div className="space-y-6">
           <BudgetSnapshot />
           <BadgeShowcase />
