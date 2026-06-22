@@ -173,18 +173,7 @@ export default function LandingPage() {
         </div>
 
         {/* Stats */}
-        <div className="flex flex-wrap justify-center gap-8 mt-16 pt-8 border-t border-border w-full max-w-2xl">
-          {[
-            { value: "2.400+", label: "Siswa Aktif" },
-            { value: "150+", label: "Misi Tersedia" },
-            { value: "98%", label: "Senang Belajar" },
-          ].map((s) => (
-            <div key={s.label} className="text-center">
-              <p className="text-3xl font-black text-primary">{s.value}</p>
-              <p className="text-sm text-muted-foreground mt-1 font-semibold">{s.label}</p>
-            </div>
-          ))}
-        </div>
+        
       </section>
 
       {/* Features */}
