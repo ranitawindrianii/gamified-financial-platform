@@ -16,86 +16,12 @@ export default function LandingPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
-    router.push("/dashboard")
+    router.push("/login")
   }
 
-  if (view === "login") {
-    return (
-      <main className="min-h-screen bg-background flex items-center justify-center p-4 relative">
-        <div
-          className="fixed inset-0 opacity-5 pointer-events-none"
-          style={{
-            backgroundImage:
-              "linear-gradient(oklch(0.78 0.17 80) 1px, transparent 1px), linear-gradient(90deg, oklch(0.78 0.17 80) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-        <div className="relative z-10 w-full max-w-md">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 border border-primary/30 mb-4 float-anim">
-              <Coins className="w-8 h-8 text-primary" />
-            </div>
-            <h1 className="text-3xl font-black shine-text">FinQuest</h1>
-            <p className="text-muted-foreground text-sm mt-1">Platform Gamifikasi Keuangan</p>
-          </div>
-
-          <Card className="border-border bg-card">
-            <CardContent className="p-8">
-              <h2 className="text-xl font-bold text-foreground mb-1">Selamat Datang!</h2>
-              <p className="text-muted-foreground text-sm mb-6">
-                Masuk untuk melanjutkan petualangan finansialmu
-              </p>
-              <form onSubmit={handleLogin} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="username" className="text-foreground font-semibold">
-                    Username / NIS
-                  </Label>
-                  <Input
-                    id="username"
-                    placeholder="Masukkan username atau NIS"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    className="bg-secondary border-border text-foreground placeholder:text-muted-foreground"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="password" className="text-foreground font-semibold">
-                    Password
-                  </Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Masukkan password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="bg-secondary border-border text-foreground placeholder:text-muted-foreground"
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  className="w-full bg-primary text-primary-foreground font-bold text-base py-6 rounded-xl glow-gold hover:bg-primary/90"
-                >
-                  Mulai Petualangan
-                  <ChevronRight className="w-5 h-5 ml-2" />
-                </Button>
-              </form>
-              <div className="mt-4 text-center">
-                <button
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  onClick={() => setView("landing")}
-                >
-                  Kembali ke halaman utama
-                </button>
-              </div>
-            </CardContent>
-          </Card>
-
-          <p className="text-center text-xs text-muted-foreground mt-6">
-            Platform Edukasi Keuangan untuk Siswa &bull; v1.0
-          </p>
-        </div>
-      </main>
-    )
+  const handleRegister = (e: React.FormEvent) => {
+    e.preventDefault()
+    router.push("/register")
   }
 
   return (
@@ -156,24 +82,36 @@ export default function LandingPage() {
 
         <div className="flex flex-col sm:flex-row gap-4 mt-10">
           <Button
-            onClick={(e) => { handleLogin(e)}}
-            size="lg"
-            className="bg-primary text-primary-foreground font-black text-lg px-8 py-7 rounded-xl glow-gold hover:bg-primary/90"
-          >
-            Mulai Petualangan
-            <ChevronRight className="w-5 h-5 ml-2" />
-          </Button>
-          {/* <Button
             variant="outline"
             size="lg"
             className="border-border text-foreground font-bold text-lg px-8 py-7 rounded-xl hover:bg-secondary"
+            onClick={(e) => { handleRegister(e) }}
           >
-            Lihat Demo
-          </Button> */}
+            Daftar Sekarang!
+          </Button>
+          <Button
+            onClick={(e) => { handleLogin(e) }}
+            size="lg"
+            className="bg-primary text-primary-foreground font-black text-lg px-8 py-7 rounded-xl glow-gold hover:bg-primary/90"
+          >
+            Mulai Petualangan!
+            <ChevronRight className="w-5 h-5 ml-2" />
+          </Button>
         </div>
 
         {/* Stats */}
-        
+        {/* <div className="flex flex-wrap justify-center gap-8 mt-16 pt-8 border-t border-border w-full max-w-2xl">
+          {[
+            { value: "2.400+", label: "Siswa Aktif" },
+            { value: "150+", label: "Misi Tersedia" },
+            { value: "98%", label: "Senang Belajar" },
+          ].map((s) => (
+            <div key={s.label} className="text-center">
+              <p className="text-3xl font-black text-primary">{s.value}</p>
+              <p className="text-sm text-muted-foreground mt-1 font-semibold">{s.label}</p>
+            </div>
+          ))}
+        </div> */}
       </section>
 
       {/* Features */}
@@ -227,7 +165,7 @@ export default function LandingPage() {
             Bergabunglah dengan ribuan siswa yang sudah cerdas finansial
           </p>
           <Button
-            onClick={() => setView("login")}
+            onClick={(e) => { handleRegister(e) }}
             size="lg"
             className="bg-primary text-primary-foreground font-black text-lg px-10 py-7 rounded-xl glow-gold hover:bg-primary/90"
           >
