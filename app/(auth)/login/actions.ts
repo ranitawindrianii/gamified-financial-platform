@@ -34,6 +34,8 @@ export async function login(formData: FormData) {
                         fullname: profileData.fullname,
                         experience: profileData.experience,
                         nis: profileData.nis,
+                        firstname: profileData.fullname.split(' ')[0],
+                        lastname: profileData.fullname.split(' ').slice(1).join(' '),
                     }
                 }
             })
