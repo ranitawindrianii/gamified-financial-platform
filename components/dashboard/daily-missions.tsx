@@ -9,39 +9,13 @@ import Link from "next/link"
 const missions = [
   {
     id: 1,
-    title: "Buat Anggaran Minggu Ini",
-    desc: "Rencanakan pengeluaran uang sakumu untuk 7 hari ke depan",
-    xp: 50,
-    coins: 30,
-    done: true,
-    category: "Anggaran",
-  },
-  {
-    id: 2,
-    title: "Kuis: Kebutuhan vs Keinginan",
-    desc: "Selesaikan 10 soal tentang perbedaan kebutuhan dan keinginan",
-    xp: 80,
-    coins: 50,
-    done: false,
+    title: "Financial Heroes: Dasar-dasar Keuangan",
+    desc: "Mengenal konsep uang, literasi keuangan, inflasi, dan sistem keuangan serta mengambil keputusan keuangan sederhana",
     category: "Kuis",
-  },
-  {
-    id: 3,
-    title: "Simulasi Tabungan 30 Hari",
-    desc: "Jalankan simulasi menabung dengan target Rp 100.000",
-    xp: 120,
-    coins: 75,
-    done: false,
-    category: "Simulasi",
-  },
-  {
-    id: 4,
-    title: "Baca: Jebakan Konsumtif",
-    desc: "Pelajari modul tentang perilaku konsumtif dan cara menghindarinya",
-    xp: 40,
-    coins: 25,
+    xp: 200,
     done: true,
-    category: "Materi",
+    questions: 10,
+    time: "15 menit",
   },
 ]
 
@@ -69,7 +43,7 @@ export function DailyMissions() {
           </div>
         </div>
         <Link href="/misi">
-          <Button variant="ghost" size="sm" className="text-primary hover:text-primary font-bold text-xs">
+          <Button variant="ghost" size="sm" className="text-primary hover:text-accent hover:bg-transparent font-bold text-xs cursor-pointer">
             Lihat Semua
             <ChevronRight className="w-4 h-4 ml-1" />
           </Button>
@@ -87,9 +61,8 @@ export function DailyMissions() {
         {missions.map((m) => (
           <div
             key={m.id}
-            className={`flex items-start gap-3 p-4 rounded-xl border transition-all ${
-              m.done ? "bg-muted/30 border-border opacity-70" : "bg-secondary border-border hover:border-primary/30"
-            }`}
+            className={`flex items-start gap-3 p-4 rounded-xl border transition-all ${m.done ? "bg-muted/30 border-border opacity-70" : "bg-secondary border-border hover:border-primary/30"
+              }`}
           >
             {m.done ? (
               <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
@@ -108,7 +81,6 @@ export function DailyMissions() {
               <p className="text-xs text-muted-foreground leading-relaxed">{m.desc}</p>
               <div className="flex items-center gap-3 mt-2">
                 <span className="text-xs font-bold text-primary">+{m.xp} XP</span>
-                <span className="text-xs font-bold text-yellow-400">+{m.coins} Koin</span>
               </div>
             </div>
             {!m.done && (

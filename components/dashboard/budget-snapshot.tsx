@@ -3,21 +3,64 @@ import { TrendingUp, ArrowUpRight, ArrowDownRight } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
+import { createClient } from "@/lib/supabase/server"
 
-const budgetItems = [
-  { label: "Saldo Minggu Ini", value: "Rp 75.000", change: "+5.000", positive: true },
-  { label: "Pengeluaran", value: "Rp 45.000", change: "-10.000", positive: false },
-  { label: "Tabungan", value: "Rp 30.000", change: "+15.000", positive: true },
-]
+export async function BudgetSnapshot() {
+  const supabase = await createClient()
 
-const spending = [
-  { label: "Makan & Jajan", pct: 60, color: "bg-primary" },
-  { label: "Transportasi", pct: 20, color: "bg-accent" },
-  { label: "Alat Tulis", pct: 10, color: "bg-blue-400" },
-  { label: "Lain-lain", pct: 10, color: "bg-muted-foreground" },
-]
+  let totalBudget = 0
+  const { data: userData } = await supabase.auth.getUser()
+  const userId = userData?.user?.id
 
-export function BudgetSnapshot() {
+  let initialAlloc: Record<string, number> = {
+    makan: 0,
+    sekolah: 0,
+    hiburan: 0,
+    tabungan: 0,
+    berbagi: 0,
+  }
+
+  if (userId) {
+    const { data: profileData } = await supabase
+      .from("profiles")
+      .select("id")
+      .eq("user_id", userId)
+      .maybeSingle()
+
+    const profile_id = profileData?.id
+
+    if (profile_id) {
+      const { data: budgetData } = await supabase
+        .from("budgets")
+        .select("food_budget, school_budget, entertainment_budget, savings_budget, charity_budget, weekly_budget")
+        .eq("profile_id", profile_id)
+        .maybeSingle()
+
+      if (budgetData) {
+        initialAlloc = {
+          makan: budgetData.food_budget ?? 0,
+          sekolah: budgetData.school_budget ?? 0,
+          hiburan: budgetData.entertainment_budget ?? 0,
+          tabungan: budgetData.savings_budget ?? 0,
+          berbagi: budgetData.charity_budget ?? 0,
+        }
+        totalBudget = budgetData.weekly_budget ?? 0
+      }
+    }
+  }
+
+  const budgetItems = [
+    { label: "Saldo Minggu Ini", value: { totalBudget }.totalBudget.toLocaleString("id-ID", { style: "currency", currency: "IDR" }) },
+  ]
+
+  const spending = [
+    { label: "Makan & Jajan", pct: initialAlloc.makan || 0, color: "bg-primary" },
+    { label: "Kebutuhan Sekolah", pct: initialAlloc.sekolah || 0, color: "bg-blue-400" },
+    { label: "Hiburan", pct: initialAlloc.hiburan || 0, color: "bg-red-400" },
+    { label: "Tabungan", pct: initialAlloc.tabungan || 0, color: "bg-green-400" },
+    { label: "Berbagi", pct: initialAlloc.berbagi || 0, color: "bg-accent" },
+  ]
+
   return (
     <Card className="bg-card border-border">
       <CardHeader className="flex flex-row items-center justify-between pb-3">
@@ -36,19 +79,15 @@ export function BudgetSnapshot() {
       <CardContent className="space-y-4 pt-0">
         {budgetItems.map((item) => (
           <div key={item.label} className="flex items-center justify-between">
-            <p className="text-xs text-muted-foreground font-semibold">{item.label}</p>
+            <p className="text-sm text-muted-foreground font-semibold">{item.label}</p>
             <div className="text-right">
               <p className="text-sm font-black text-foreground">{item.value}</p>
-              <p className={`text-xs font-bold flex items-center gap-0.5 justify-end ${item.positive ? "text-accent" : "text-destructive"}`}>
-                {item.positive ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                {item.change}
-              </p>
             </div>
           </div>
         ))}
 
         <div className="pt-2">
-          <p className="text-xs text-muted-foreground font-semibold mb-3">Distribusi Pengeluaran</p>
+          <p className="text-xs text-muted-foreground font-semibold mb-3">Distribusi Anggaran</p>
           <div className="space-y-2">
             {spending.map((s) => (
               <div key={s.label}>
