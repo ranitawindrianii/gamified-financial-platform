@@ -1,10 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
-import { TrendingUp, ArrowRight, CheckCircle2, ShoppingCart, BookOpen, Gamepad2, PiggyBank, HandHeart } from "lucide-react"
+import { Spinner } from "@/components/ui/spinner"
+import { TrendingUp, ArrowRight, ShoppingCart, BookOpen, Gamepad2, PiggyBank, HandHeart } from "lucide-react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { toast } from "@/hooks/use-toast"
 import { cn } from "@/lib/utils"
 
 const iconMap: Record<string, any> = {
@@ -30,13 +34,22 @@ function fmt(n: number) {
 interface SimulasiContentProps {
     initialAlloc: Record<string, number>
     totalBudget: number,
-    finalAlloc?: any
 }
 
-export function SimulasiContent({ initialAlloc, totalBudget, finalAlloc }: SimulasiContentProps) {
+export function SimulasiContent({ initialAlloc, totalBudget }: SimulasiContentProps) {
     const [alloc, setAlloc] = useState<Record<string, number>>(initialAlloc)
-    const [submitted, setSubmitted] = useState(false)
-    const [earnedXp, setEarnedXp] = useState(0)
+
+    const [budget, setBudget] = useState<number>(() => {
+        try {
+            const stored = typeof window !== 'undefined' ? localStorage.getItem('totalBudget') : null
+            return stored ? Number(stored) : totalBudget
+        } catch (e) {
+            return totalBudget
+        }
+    })
+    const [open, setOpen] = useState<boolean>(budget === 0)
+    const [budgetInput, setBudgetInput] = useState<string>(budget > 0 ? String(budget) : "")
+    const [isSaving, setIsSaving] = useState<boolean>(false)
 
     const total = Object.values(alloc).reduce((a, b) => a + b, 0)
     const remaining = 100 - total
@@ -45,39 +58,57 @@ export function SimulasiContent({ initialAlloc, totalBudget, finalAlloc }: Simul
         setAlloc((prev) => ({ ...prev, [key]: val }))
     }
 
-    const getScore = () => {
-        const savingsOk = alloc.tabungan >= 10
-        const eatOk = alloc.makan <= 50
-        const entertainOk = alloc.hiburan <= 20
-        const balanced = Math.abs(remaining) <= 0
-        const score = [savingsOk, eatOk, entertainOk, balanced].filter(Boolean).length
-        return { savingsOk, eatOk, entertainOk, balanced, score }
+    const saveInitialBudget = () => {
+        const val = Number(budgetInput.replace(/[^0-9.-]+/g, '')) || 0
+        if (val > 0) {
+            try {
+                localStorage.setItem('totalBudget', String(val))
+            } catch (e) { }
+            setBudget(val)
+            setOpen(false)
+        }
     }
-
-    const score = getScore()
-    const calculateXp = () => {
-        if (score.score === 4) return 150
-        if (score.score === 3) return 100
-        if (score.score === 2) return 50
-        return 0
-    }
-    const xp = calculateXp()
-
-    const tips: { text: string; ok: boolean }[] = [
-        { text: "Alokasi tabungan minimal 10%", ok: score.savingsOk },
-        { text: "Pengeluaran makan tidak melebihi 50%", ok: score.eatOk },
-        { text: "Hiburan tidak melebihi 20%", ok: score.entertainOk },
-        { text: "Total alokasi tepat 100%", ok: score.balanced },
-    ]
 
     return (
         <div className="space-y-6 pb-20 md:pb-0 max-w-4xl mx-auto">
+            <Dialog open={open} onOpenChange={(v) => setOpen(v)}>
+                <DialogContent showCloseButton={false}>
+                    <DialogHeader>
+                        <DialogTitle>Atur Uang Saku Pertama</DialogTitle>
+                        <DialogDescription>Masukkan jumlah uang saku mingguan untuk memulai simulasi.</DialogDescription>
+                    </DialogHeader>
+                    <div className="mt-4">
+                        <Input
+                            type="number"
+                            placeholder="Masukkan jumlah (contoh: 50000)"
+                            value={budgetInput}
+                            onChange={(e) => setBudgetInput(e.target.value)}
+                        />
+                    </div>
+                    <DialogFooter>
+                        <div className="flex w-full gap-2">
+                            <button
+                                className="flex-1 bg-muted text-foreground rounded-md py-2"
+                                onClick={() => {
+                                    // If user cancels and no budget yet, keep dialog open
+                                    if (budget === 0) return
+                                    setOpen(false)
+                                }}
+                            >Batal</button>
+                            <button
+                                className="flex-1 bg-primary text-primary-foreground rounded-md py-2"
+                                onClick={saveInitialBudget}
+                            >Simpan</button>
+                        </div>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
             <div>
                 <h1 className="text-2xl md:text-3xl font-black text-foreground">
                     Simulasi <span className="text-primary">Anggaran</span>
                 </h1>
                 <p className="text-muted-foreground text-sm mt-1">
-                    Kelola uang saku virtual {fmt(totalBudget)}/minggu. Atur alokasi terbaik dan lihat skormu!
+                    Kelola uang saku virtual {fmt(budget)}/minggu. Atur alokasi terbaik dan lihat skormu!
                 </p>
             </div>
 
@@ -91,7 +122,19 @@ export function SimulasiContent({ initialAlloc, totalBudget, finalAlloc }: Simul
                             </div>
                             <div>
                                 <p className="font-black text-foreground">Uang Saku Mingguan</p>
-                                <p className="text-2xl font-black text-primary">{fmt(totalBudget)}</p>
+                                <div className="flex items-center gap-3">
+                                    <p className="text-2xl font-black text-primary">{fmt(budget)}</p>
+                                    <button
+                                        type="button"
+                                        className="text-sm text-primary underline"
+                                        onClick={() => {
+                                            setBudgetInput(String(budget || ''))
+                                            setOpen(true)
+                                        }}
+                                    >
+                                        Ubah
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div className="text-right">
@@ -131,28 +174,39 @@ export function SimulasiContent({ initialAlloc, totalBudget, finalAlloc }: Simul
                 <div className="lg:col-span-2 space-y-4">
                     <form onSubmit={async (e) => {
                         e.preventDefault()
-                        if (remaining !== 0) return
+                        if (remaining !== 0 || isSaving) return
+                        setIsSaving(true)
+
                         try {
                             const res = await fetch('/api/budgets', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ alloc, xp })
+                                body: JSON.stringify({ alloc, totalBudget: budget })
                             })
                             if (!res.ok) {
                                 console.error('save failed', await res.text())
                                 return
                             }
-                            setEarnedXp(xp)
-                            setSubmitted(true)
+
+                            toast({
+                                title: 'Anggaran tersimpan',
+                                description: 'Alokasi anggaran berhasil disimpan.',
+                            })
                         } catch (err) {
                             console.error(err)
+                            toast({
+                                title: 'Gagal menyimpan',
+                                description: 'Terjadi kesalahan, silakan coba lagi.',
+                            })
+                        } finally {
+                            setIsSaving(false)
                         }
                     }}>
                         <h2 className="font-black text-foreground text-lg">Atur Alokasi</h2>
                         {categories.map((c) => {
                             const Icon = iconMap[c.icon]
                             return (
-                                <Card key={c.key} className="bg-card border-border">
+                                <Card key={c.key} className="bg-card border-border mt-2 mb-2">
                                     <CardContent className="p-5">
                                         <div className="flex items-center justify-between mb-3">
                                             <div className="flex items-center gap-3">
@@ -161,7 +215,7 @@ export function SimulasiContent({ initialAlloc, totalBudget, finalAlloc }: Simul
                                             </div>
                                             <div className="text-right">
                                                 <span className={cn("text-lg font-black", c.color)}>{alloc[c.key]}%</span>
-                                                <p className="text-xs text-muted-foreground">{fmt((alloc[c.key] / 100) * totalBudget)}</p>
+                                                <p className="text-xs text-muted-foreground">{fmt((alloc[c.key] / 100) * budget)}</p>
                                             </div>
                                         </div>
                                         <Slider
@@ -183,10 +237,21 @@ export function SimulasiContent({ initialAlloc, totalBudget, finalAlloc }: Simul
                         <Button
                             type="submit"
                             className="w-full bg-primary text-primary-foreground font-black text-base py-6 rounded-xl glow-gold hover:bg-primary/90"
-                            disabled={remaining !== 0}
+                            disabled={remaining !== 0 || isSaving}
                         >
-                            {remaining > 0 ? `Sisa ${remaining}% belum dialokasikan` : remaining < 0 ? `Anggaran berlebih ${Math.abs(remaining)}%` : "Evaluasi Anggaranku"}
-                            <ArrowRight className="w-5 h-5 ml-2" />
+                            {isSaving ? (
+                                <span className="flex items-center justify-center gap-2">
+                                    <Spinner className="w-4 h-4" />
+                                    Menyimpan...
+                                </span>
+                            ) : remaining > 0 ? (
+                                `Sisa ${remaining}% belum dialokasikan`
+                            ) : remaining < 0 ? (
+                                `Anggaran berlebih ${Math.abs(remaining)}%`
+                            ) : (
+                                "Evaluasi Anggaranku"
+                            )}
+                            {!isSaving && <ArrowRight className="w-5 h-5 ml-2" />}
                         </Button>
                     </form>
                 </div>

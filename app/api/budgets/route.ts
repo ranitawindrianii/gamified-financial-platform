@@ -21,8 +21,6 @@ export async function POST(req: Request) {
         const profile_id = profileData?.id
         if (!profile_id) return NextResponse.json({ error: "profile_not_found" }, { status: 400 })
 
-        const xp = Number(body?.xp ?? 0)
-
         const payload = {
             profile_id,
             food_budget: alloc.makan ?? 0,
@@ -30,6 +28,7 @@ export async function POST(req: Request) {
             entertainment_budget: alloc.hiburan ?? 0,
             savings_budget: alloc.tabungan ?? 0,
             charity_budget: alloc.berbagi ?? 0,
+            weekly_budget: body?.totalBudget ?? 0,
         }
 
         const { data, error } = await supabase
@@ -39,22 +38,6 @@ export async function POST(req: Request) {
             .maybeSingle()
 
         if (error) return NextResponse.json({ error: (error as any)?.message ?? String(error) }, { status: 500 })
-
-        if (xp > 0) {
-            const { data: profile } = await supabase
-                .from("profiles")
-                .select("experience")
-                .eq("id", profile_id)
-                .maybeSingle()
-
-            const currentXp = profile?.experience ?? 0
-            const { error: profileError } = await supabase
-                .from("profiles")
-                .update({ experience: currentXp + xp })
-                .eq("id", profile_id)
-
-            if (profileError) return NextResponse.json({ error: (profileError as any)?.message ?? String(profileError) }, { status: 500 })
-        }
 
         return NextResponse.json({ data })
     } catch (err) {

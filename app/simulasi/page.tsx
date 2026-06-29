@@ -1,11 +1,11 @@
 import { SimulasiContent } from "@/components/simulasi/SimulasiContent"
+import { Toaster } from "@/components/ui/toaster"
 import { createClient } from "@/lib/supabase/server"
-
-const TOTAL_BUDGET = 200000
 
 export default async function SimulasiPage() {
   const supabase = await createClient()
 
+  let totalBudget = 0
   const { data: userData } = await supabase.auth.getUser()
   const userId = userData?.user?.id
 
@@ -29,7 +29,7 @@ export default async function SimulasiPage() {
     if (profile_id) {
       const { data: budgetData } = await supabase
         .from("budgets")
-        .select("food_budget, school_budget, entertainment_budget, savings_budget, charity_budget")
+        .select("food_budget, school_budget, entertainment_budget, savings_budget, charity_budget, weekly_budget")
         .eq("profile_id", profile_id)
         .maybeSingle()
 
@@ -41,9 +41,15 @@ export default async function SimulasiPage() {
           tabungan: budgetData.savings_budget ?? 0,
           berbagi: budgetData.charity_budget ?? 0,
         }
+        totalBudget = budgetData.weekly_budget ?? 0
       }
     }
   }
 
-  return <SimulasiContent initialAlloc={initialAlloc} totalBudget={TOTAL_BUDGET} />
+  return (
+    <>
+      <SimulasiContent initialAlloc={initialAlloc} totalBudget={totalBudget} />
+      <Toaster />
+    </>
+  )
 }
