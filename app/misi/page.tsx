@@ -17,7 +17,7 @@ const allMissions = [
     type: "Kuis",
     xp: 200,
     difficulty: "Mudah",
-    status: "available",
+    done: false,
     questions: 10,
     time: "15 menit",
   },
@@ -67,12 +67,11 @@ export default function MisiPage() {
 
   const missionsWithStatus = allMissions.map((m) => ({
     ...m,
-    status: kuisTaken > 0 && m.type === "Kuis" ? "done" : m.status,
+    done: kuisTaken > 0 && m.type === "Kuis",
   }))
 
-  const available = missionsWithStatus.filter((m) => m.status === "available")
-  const done = missionsWithStatus.filter((m) => m.status === "done")
-  const locked = missionsWithStatus.filter((m) => m.status === "locked")
+  const available = missionsWithStatus.filter((m) => !m.done)
+  const done = missionsWithStatus.filter((m) => m.done)
 
   return (
     <div className="space-y-6 pb-20 md:pb-0">
@@ -87,11 +86,10 @@ export default function MisiPage() {
       </div>
 
       {/* Summary bar */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         {[
           { label: "Tersedia", count: available.length, color: "text-primary" },
           { label: "Selesai", count: done.length, color: "text-accent" },
-          { label: "Terkunci", count: locked.length, color: "text-muted-foreground" },
         ].map((s) => (
           <Card key={s.label} className="bg-card border-border">
             <CardContent className="p-4 text-center">
@@ -129,26 +127,20 @@ export default function MisiPage() {
             {list.map((m) => (
               <Card
                 key={m.id}
-                className={`bg-card border-border transition-all ${
-                  m.status === "locked" ? "opacity-60" : "card-hover"
-                }`}
+                className={`bg-card border-border transition-all ${m.done ? "opacity-60" : "card-hover"
+                  }`}
               >
                 <CardContent className="p-5">
                   <div className="flex items-start gap-4">
                     {/* Icon */}
                     <div
-                      className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${
-                        m.status === "done"
-                          ? "bg-accent/10"
-                          : m.status === "locked"
-                          ? "bg-muted/30"
-                          : "bg-primary/10"
-                      }`}
+                      className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${m.done
+                        ? "bg-accent/10"
+                        : "bg-primary/10"
+                        }`}
                     >
-                      {m.status === "done" ? (
+                      {m.done ? (
                         <CheckCircle2 className="w-6 h-6 text-accent" />
-                      ) : m.status === "locked" ? (
-                        <Lock className="w-6 h-6 text-muted-foreground" />
                       ) : (
                         <Sword className="w-6 h-6 text-primary" />
                       )}
@@ -182,13 +174,9 @@ export default function MisiPage() {
                     </div>
 
                     <div className="shrink-0">
-                      {m.status === "done" ? (
+                      {m.done ? (
                         <Badge className="bg-accent/10 text-accent border-accent/20 font-bold" variant="outline">
                           Selesai
-                        </Badge>
-                      ) : m.status === "locked" ? (
-                        <Badge className="bg-muted/30 text-muted-foreground border-border" variant="outline">
-                          Terkunci
                         </Badge>
                       ) : (
                         <Button
